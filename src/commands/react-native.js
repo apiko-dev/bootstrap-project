@@ -20,6 +20,8 @@ const eslintDependencies = {
   'eslint-plugin-react-native': '^3.1.0',
 };
 
+const condStr = (condition, str) => (condition ? str : '');
+
 module.exports = {
   name: 'react-native',
   alias: ['rn'],
@@ -41,6 +43,7 @@ module.exports = {
     info(
       `
       Initializing react-native project ${name} using ${shouldUseNpm ? 'npm' : 'yarn'}.
+      ${condStr(options.version, `React Native version: ${options.version}`)}
       Please wait a bit.`,
     );
 
@@ -52,10 +55,11 @@ module.exports = {
     }
 
     await system.run(
-      `react-native init ${name} ${shouldUseNpm ? '--npm' : ''}`,
+      `react-native init ${name} ${condStr(
+        shouldUseNpm,
+        '--npm',
+      )} ${condStr(options.version, `--version ${options.version}`)}`,
     );
-    // await system.run(`mkdir ${name}`);
-    // await system.run(`cd ${name}; npm init -y`);
 
     const packageJsonPath = `./${name}/package.json`;
     const packageJson = await filesystem.read(
