@@ -1,25 +1,16 @@
 # bootstrap-project CLI
 
-A CLI for bootstrap-project.
+> A CLI for bootstrapping Apiko projects
 
-## Customizing your CLI
+## Available commands
 
-Check out the documentation at https://github.com/infinitered/gluegun/tree/master/docs.
+### React Native
 
-## Publishing to NPM
+You can use `react-native` (alias `rn`) command to bootstrap React Native project.
 
-To package your CLI up for NPM, do this:
-
-```shell
-$ npm login
-$ npm whoami
-$ npm lint
-$ npm test
-(if typescript, run `npm run build` here)
-$ npm publish
+```bash
+$ bootstrap-project react-native <name>
 ```
 
 # License
-
 MIT - see LICENSE
-

@@ -1,8 +1,8 @@
 {
-  "name": "bootstrap-project",
-  "version": "0.0.1",
-  "description": "bootstrap-project CLI",
-  "private": true,
+  "name": "@apiko/bootstrap-project",
+  "version": "0.1.0",
+  "description": "A CLI for bootstrapping Apiko projects",
+  "private": false,
   "bin": {
     "bootstrap-project": "bin/bootstrap-project"
   },
