@@ -5,18 +5,17 @@ module.exports = (toolbox) => {
     // eslint-disable-next-line global-require
     const commandExists = require('command-exists');
 
-    return commandExists('react-native');
+    return commandExists('expo');
   }
 
-  function init({ name, shouldUseNpm, version }) {
+  function init({ template, name, shouldUseNpm }) {
     // prettier-ignore
     return toolbox.system.run(
-      // eslint-disable-next-line max-len
-      `react-native init ${name} ${condStr(shouldUseNpm, '--npm')} ${condStr(version, `--version ${version}`)}`,
+      `expo init ${name} ${condStr(shouldUseNpm, '--npm')} --template ${template}`,
     );
   }
 
-  attachExtensions(toolbox, 'rn', {
+  attachExtensions(toolbox, 'expo', {
     checkCli,
     init,
   });

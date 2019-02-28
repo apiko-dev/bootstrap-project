@@ -1,33 +1,30 @@
 // bootstrap-project rn TodoApp
-const { condStr } = require('../utils');
-
 const HELP_MESSAGE = `
-Bootstraps react native project with a given name using yarn.
+Bootstraps expo project with a given name using yarn.
 
 Usage:
-  rn <name>
-  react-native <name>
-  react-native <name> [options]
+  e <name>
+  expo <name>
+  expo <name> [options]
 
 Options:
-  --npm               Use npm as package manager
-  --version, -v       Version of react native
+  --npm                  Use npm as package manager.
+  -t, --template [name]  Specify which template to use. Valid options are "blank", "tabs" or any npm package that includes an Expo project template. Default is blank.
 `;
 // prettier-ignore
 const showInitializationMessage = (opts) => `
-Initializing react-native project ${opts.name} using ${opts.shouldUseNpm ? 'npm' : 'yarn'}.
-${condStr(opts.version, `React Native version: ${opts.version}`)}
+Initializing expo project ${opts.name} using ${opts.shouldUseNpm ? 'npm' : 'yarn'}.
+Template is ${opts.template}.
 Please wait a bit.
 `;
 
 module.exports = {
-  name: 'react-native',
-  alias: ['rn'],
+  name: 'expo',
+  alias: ['e'],
   run: async (toolbox) => {
     const {
       parameters,
       print: { error, info },
-      system,
       extensions,
     } = toolbox;
     const { first: name, options } = parameters;
@@ -38,24 +35,20 @@ module.exports = {
     }
 
     const shouldUseNpm = options.npm;
-    const version = options.version || options.v;
     const targetPath = `./${name}/`;
+    const template = options.template || options.t || 'blank';
 
     // prettier-ignore
-    info(showInitializationMessage({ name, shouldUseNpm, version }));
+    info(showInitializationMessage({ name, shouldUseNpm, template }));
 
     try {
-      await extensions.rn.checkCli();
+      await extensions.expo.checkCli();
     } catch (e) {
-      error('Please install react-native-cli first');
+      error('Please install expo-cli first');
       return;
     }
-    await system.run(
-      `react-native init ${name} ${condStr(
-        shouldUseNpm,
-        '--npm',
-      )} ${condStr(options.version, `--version ${options.version}`)}`,
-    );
+    // prettier-ignore
+    await extensions.expo.init({ template, name, shouldUseNpm });
 
     info('Adding linter');
     await extensions.linterAirbnb.initReact(targetPath);
