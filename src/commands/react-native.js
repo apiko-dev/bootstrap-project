@@ -1,26 +1,24 @@
 // bootstrap-project rn TodoApp
-const REACT_RULES = `
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/forbid-prop-types": 0,
-    "react/require-default-props": 0,
-    "react-native/no-unused-styles": 2,
-    "react-native/split-platform-components": 2,
-    "react-native/no-inline-styles": 2,
-    "react-native/no-color-literals": 2,
+const { condStr } = require('../utils');
+
+const HELP_MESSAGE = `
+Bootstraps react native project with a given name using yarn.
+
+Usage:
+  rn <name>
+  react-native <name>
+  react-native <name> [options]
+
+Options:
+  --npm               Use npm as package manager
+  --version, -v       Version of react native
 `;
-
-const eslintDependencies = {
-  'babel-eslint': '^8.0.1',
-  eslint: '^4.2.0',
-  'eslint-config-airbnb': '^16.1.0',
-  'eslint-formatter-pretty': '^1.1.0',
-  'eslint-plugin-import': '^2.7.0',
-  'eslint-plugin-jsx-a11y': '^6.0.2',
-  'eslint-plugin-react': '^7.1.0',
-  'eslint-plugin-react-native': '^3.1.0',
-};
-
-const condStr = (condition, str) => (condition ? str : '');
+// prettier-ignore
+const showInitializationMessage = (opts) => `
+Initializing react-native project ${opts.name} using ${opts.shouldUseNpm ? 'npm' : 'yarn'}.
+${condStr(opts.version, `React Native version: ${opts.version}`)}
+Please wait a bit.
+`;
 
 module.exports = {
   name: 'react-native',
@@ -28,32 +26,30 @@ module.exports = {
   run: async (toolbox) => {
     const {
       parameters,
-      template: { generate },
       print: { error, info },
-      rn,
       system,
-      filesystem,
+      extensions,
     } = toolbox;
-
     const { first: name, options } = parameters;
 
+    if (options.help || options.h) {
+      info(HELP_MESSAGE);
+      return;
+    }
+
     const shouldUseNpm = options.npm;
+    const version = options.version || options.v;
+    const targetPath = `./${name}/`;
 
     // prettier-ignore
-    info(
-      `
-      Initializing react-native project ${name} using ${shouldUseNpm ? 'npm' : 'yarn'}.
-      ${condStr(options.version, `React Native version: ${options.version}`)}
-      Please wait a bit.`,
-    );
+    info(showInitializationMessage({ name, shouldUseNpm, version }));
 
     try {
-      await rn.reactNativeInit.checkReactNativeCliInstalled();
+      await extensions.rn.checkCli();
     } catch (e) {
       error('Please install react-native-cli first');
       return;
     }
-
     await system.run(
       `react-native init ${name} ${condStr(
         shouldUseNpm,
@@ -61,48 +57,17 @@ module.exports = {
       )} ${condStr(options.version, `--version ${options.version}`)}`,
     );
 
-    const packageJsonPath = `./${name}/package.json`;
-    const packageJson = await filesystem.read(
-      packageJsonPath,
-      'json',
-    );
-
     info('Adding linter');
-    packageJson.devDependencies = Object.assign(
-      packageJson.devDependencies || {},
-      eslintDependencies,
-    );
-    await generate({
-      template: 'eslintrc.js.ejs',
-      target: `${name}/.eslintrc.js`,
-      props: {
-        plugins: "['react', 'react-native']",
-        extensions: "['js', '.android.js', '.ios.js']",
-        extends: 'airbnb',
-        reactRules: REACT_RULES,
-      },
-    });
+    await extensions.linterAirbnb.initReact(targetPath);
 
     info('Adding prettier');
-    await generate({
-      template: 'prettierrc.ejs',
-      target: `${name}/.prettierrc`,
-    });
+    await extensions.prettier.init(targetPath);
 
     info('Adding editor config');
-    await generate({
-      template: 'editorconfig.ejs',
-      target: `${name}/.editorconfig`,
-    });
-
-    // write final package.json
-    await filesystem.write(packageJsonPath, packageJson);
+    await extensions.editorconfig.init(targetPath);
 
     info('Installing additional dependencies');
-
-    const finishCommand = (cmd) => `cd ${name}; ${cmd}`;
-
-    await system.run(finishCommand(shouldUseNpm ? 'npm i' : 'yarn'));
+    await extensions.packageManager.install(targetPath, shouldUseNpm);
 
     info('Done. Have a nice day!');
   },
