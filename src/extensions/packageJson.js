@@ -2,20 +2,28 @@ const path = require('path');
 const { attachExtensions } = require('../utils');
 
 module.exports = (toolbox) => {
-  function read(targetPath) {
-    const packageJsonPath = path.resolve(targetPath, 'package.json');
+  const ctx = toolbox.extensions.context.get();
+
+  function read() {
+    const packageJsonPath = path.resolve(
+      ctx.targetPath,
+      'package.json',
+    );
 
     return toolbox.filesystem.read(packageJsonPath, 'json');
   }
 
-  function write(targetPath, json) {
-    const packageJsonPath = path.resolve(targetPath, 'package.json');
+  function write(json) {
+    const packageJsonPath = path.resolve(
+      ctx.targetPath,
+      'package.json',
+    );
 
     return toolbox.filesystem.write(packageJsonPath, json);
   }
 
-  async function addDependencies(targetPath, newDependencies, dev) {
-    const packageJson = await read(targetPath);
+  async function addDependencies(newDependencies, dev) {
+    const packageJson = await read(ctx.targetPath);
 
     const target = dev ? 'devDependencies' : 'dependencies';
 
@@ -24,7 +32,7 @@ module.exports = (toolbox) => {
       newDependencies,
     );
 
-    await write(targetPath, packageJson);
+    await write(packageJson);
   }
 
   attachExtensions(toolbox, 'packageJson', {

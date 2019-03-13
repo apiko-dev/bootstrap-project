@@ -41,31 +41,32 @@ module.exports = {
 
     const targetPath = `./${name}/`;
 
+    // this context will be used by all the extensions
+    extensions.context.write('targetPath', targetPath);
+
     // prettier-ignore
     info(showInitializationMessage({ name, shouldUseNpm, example }));
     await extensions.npmProject.init(name);
 
     info('Adding linter');
-    await extensions.linterAirbnb.initReact(targetPath);
+    await extensions.linterAirbnb.initReact();
 
     info('Adding prettier');
-    await extensions.prettier.init(targetPath);
+    await extensions.prettier.init();
 
     info('Adding editor config');
-    await extensions.editorconfig.init(targetPath);
+    await extensions.editorconfig.init();
 
     info('Installing additional dependencies');
-    await extensions.packageManager.install(targetPath, shouldUseNpm);
+    await extensions.packageManager.install(shouldUseNpm);
 
     info('Adding npm ignore');
-    await extensions.npmignore.init(targetPath, [
-      example && 'example',
-    ]);
+    await extensions.npmignore.init([example && 'example']);
 
     info('Adding main to package.json');
-    const packageJson = await extensions.packageJson.read(targetPath);
+    const packageJson = await extensions.packageJson.read();
     packageJson.main = 'lib/index.js';
-    await extensions.packageJson.write(targetPath, packageJson);
+    await extensions.packageJson.write(packageJson);
 
     await extensions.filesystem.touch(`${name}/lib/index.js`);
 

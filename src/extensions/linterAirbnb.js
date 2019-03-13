@@ -23,14 +23,16 @@ const eslintDependencies = {
 };
 
 module.exports = (toolbox) => {
-  async function initReact(targetPath) {
+  const ctx = toolbox.extensions.context.get();
+
+  async function initReact() {
     await toolbox.extensions.packageJson.addDependencies(
-      targetPath,
+      ctx.targetPath,
       eslintDependencies,
       true,
     );
 
-    const target = path.resolve(targetPath, '.eslintrc.js');
+    const target = path.resolve(ctx.targetPath, '.eslintrc.js');
 
     await toolbox.template.generate({
       template: 'eslintrc.js.ejs',

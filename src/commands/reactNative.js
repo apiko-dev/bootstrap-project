@@ -40,6 +40,9 @@ module.exports = {
     const version = options.version || options.v;
     const targetPath = `./${name}/`;
 
+    // this context will be used by all the extensions
+    extensions.context.write('targetPath', targetPath);
+
     // prettier-ignore
     info(showInitializationMessage({ name, shouldUseNpm, version }));
 
@@ -52,16 +55,16 @@ module.exports = {
     await extensions.rn.init({ name, shouldUseNpm, version });
 
     info('Adding linter');
-    await extensions.linterAirbnb.initReact(targetPath);
+    await extensions.linterAirbnb.initReact();
 
     info('Adding prettier');
-    await extensions.prettier.init(targetPath);
+    await extensions.prettier.init();
 
     info('Adding editor config');
-    await extensions.editorconfig.init(targetPath);
+    await extensions.editorconfig.init();
 
     info('Installing additional dependencies');
-    await extensions.packageManager.install(targetPath, shouldUseNpm);
+    await extensions.packageManager.install(shouldUseNpm);
 
     info('Done. Have a nice day!');
   },
