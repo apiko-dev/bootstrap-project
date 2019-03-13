@@ -1,4 +1,4 @@
-const { attachExtensions, condStr } = require('../utils');
+const { attachExtensions, buildCommand } = require('../utils');
 
 module.exports = (toolbox) => {
   function checkCli() {
@@ -8,12 +8,19 @@ module.exports = (toolbox) => {
     return commandExists('react-native');
   }
 
-  function init({ name, shouldUseNpm, version }) {
+  function init({
+    cdIntoPath, name, shouldUseNpm, version,
+  }) {
+    const cmd = buildCommand([
+      cdIntoPath && `cd ${cdIntoPath} &&`,
+      'react-native',
+      'init',
+      name,
+      shouldUseNpm && '--npm',
+      version && `--version ${version}`,
+    ]);
     // prettier-ignore
-    return toolbox.system.run(
-      // eslint-disable-next-line max-len
-      `react-native init ${name} ${condStr(shouldUseNpm, '--npm')} ${condStr(version, `--version ${version}`)}`,
-    );
+    return toolbox.system.run(cmd);
   }
 
   attachExtensions(toolbox, 'rn', {

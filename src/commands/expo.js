@@ -1,15 +1,15 @@
-// bootstrap-project rn TodoApp
+/* eslint-disable max-len */
 const HELP_MESSAGE = `
 Bootstraps expo project with a given name using yarn.
 
 Usage:
-  e <name>
-  expo <name>
-  expo <name> [options]
+e <name>
+expo <name>
+expo <name> [options]
 
 Options:
-  --npm                  Use npm as package manager.
-  -t, --template [name]  Specify which template to use. Valid options are "blank", "tabs" or any npm package that includes an Expo project template. Default is blank.
+--npm                  Use npm as package manager.
+-t, --template [name]  Specify which template to use. Valid options are "blank", "tabs" or any npm package that includes an Expo project template. Default is blank.
 `;
 // prettier-ignore
 const showInitializationMessage = (opts) => `
@@ -17,6 +17,7 @@ Initializing expo project ${opts.name} using ${opts.shouldUseNpm ? 'npm' : 'yarn
 Template is ${opts.template}.
 Please wait a bit.
 `;
+/* eslint-enable max-len */
 
 module.exports = {
   name: 'expo',
@@ -38,6 +39,9 @@ module.exports = {
     const targetPath = `./${name}/`;
     const template = options.template || options.t || 'blank';
 
+    // this context will be used by all the extensions
+    extensions.context.write('targetPath', targetPath);
+
     // prettier-ignore
     info(showInitializationMessage({ name, shouldUseNpm, template }));
 
@@ -51,16 +55,16 @@ module.exports = {
     await extensions.expo.init({ template, name, shouldUseNpm });
 
     info('Adding linter');
-    await extensions.linterAirbnb.initReact(targetPath);
+    await extensions.linterAirbnb.initReact();
 
     info('Adding prettier');
-    await extensions.prettier.init(targetPath);
+    await extensions.prettier.init();
 
     info('Adding editor config');
-    await extensions.editorconfig.init(targetPath);
+    await extensions.editorconfig.init();
 
     info('Installing additional dependencies');
-    await extensions.packageManager.install(targetPath, shouldUseNpm);
+    await extensions.packageManager.install(shouldUseNpm);
 
     info('Done. Have a nice day!');
   },

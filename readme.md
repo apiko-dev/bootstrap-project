@@ -12,12 +12,40 @@ You can use `react-native` (alias `rn`) command to bootstrap React Native projec
 $ bootstrap-project react-native <name>
 ```
 
+Use `--help` to see all available options:
+
+```bash
+$ bootstrap-project react-native --help
+```
+
 #### Expo
 
 You can use `expo` command to bootstrap Expo project.
 
 ```bash
 $ bootstrap-project expo <name>
+```
+
+Use `--help` to see all available options:
+
+```bash
+$ bootstrap-project expo --help
+```
+
+### Library
+
+##### React Native Library
+
+You can use `react-native-lib` (alias `rn-lib`) command to bootstrap React Native Library project with an optional example.
+
+```bash
+$ bootstrap-project react-native-lib <name> [options]
+```
+
+Use `--help` to see all available options:
+
+```bash
+$ bootstrap-project react-native-lib --help
 ```
 
 # License

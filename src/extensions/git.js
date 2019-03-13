@@ -3,16 +3,18 @@ const { attachExtensions, buildCommand } = require('../utils');
 module.exports = (toolbox) => {
   const ctx = toolbox.extensions.context.get();
 
-  async function install(shouldUseNpm) {
+  function init() {
+    // prettier-ignore
     const cmd = buildCommand([
       `cd ${ctx.targetPath} &&`,
-      shouldUseNpm ? 'npm i' : 'yarn',
+      'git',
+      'init',
     ]);
 
-    await toolbox.system.run(cmd);
+    return toolbox.system.run(cmd);
   }
 
-  attachExtensions(toolbox, 'packageManager', {
-    install,
+  attachExtensions(toolbox, 'git', {
+    init,
   });
 };
