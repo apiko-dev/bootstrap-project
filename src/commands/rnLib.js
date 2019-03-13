@@ -72,6 +72,12 @@ module.exports = {
 
     await extensions.filesystem.touch(`${name}/lib/index.js`);
 
+    info('Init git repository');
+    await extensions.git.init();
+
+    info('Init git ignore');
+    await extensions.gitignore.init();
+
     // create an example
     if (example) {
       info('Adding example project');
