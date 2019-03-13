@@ -27,7 +27,6 @@ module.exports = (toolbox) => {
 
   async function initReact() {
     await toolbox.extensions.packageJson.addDependencies(
-      ctx.targetPath,
       eslintDependencies,
       true,
     );
