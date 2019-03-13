@@ -57,6 +57,12 @@ module.exports = {
     info('Installing additional dependencies');
     await extensions.packageManager.install(targetPath, shouldUseNpm);
 
+    info('Adding npm ignore');
+    await extensions.npmignore.init(targetPath, [
+      example && 'example',
+    ]);
+
+    info('Adding main to package.json');
     const packageJson = await extensions.packageJson.read(targetPath);
     packageJson.main = 'lib/index.js';
     await extensions.packageJson.write(targetPath, packageJson);
