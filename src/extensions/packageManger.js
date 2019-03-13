@@ -1,12 +1,15 @@
-const { attachExtensions } = require('../utils');
+const { attachExtensions, buildCommand } = require('../utils');
 
 module.exports = (toolbox) => {
-  async function install(targetPath, shouldUseNpm) {
-    const finishCommand = (cmd) => `cd ${targetPath}; ${cmd}`;
+  const ctx = toolbox.extensions.context.get();
 
-    await toolbox.system.run(
-      finishCommand(shouldUseNpm ? 'npm i' : 'yarn'),
-    );
+  async function install(shouldUseNpm) {
+    const cmd = buildCommand([
+      `cd ${ctx.targetPath} &&`,
+      shouldUseNpm ? 'npm i' : 'yarn',
+    ]);
+
+    await toolbox.system.run(cmd);
   }
 
   attachExtensions(toolbox, 'packageManager', {

@@ -2,8 +2,10 @@ const path = require('path');
 const { attachExtensions } = require('../utils');
 
 module.exports = (toolbox) => {
-  async function init(targetPath, filesToIgnore = []) {
-    const target = path.resolve(targetPath, '.npmignore');
+  const ctx = toolbox.extensions.context.get();
+
+  async function init(filesToIgnore = []) {
+    const target = path.resolve(ctx.targetPath, '.npmignore');
 
     await toolbox.template.generate({
       template: 'npmignore.ejs',
