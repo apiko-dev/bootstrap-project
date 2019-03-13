@@ -1,17 +1,18 @@
 // bootstrap-project rn TodoApp
 const { condStr, buildCommand } = require('../utils');
 
+/* eslint-disable max-len */
 const HELP_MESSAGE = `
-Bootstraps react native library with optional exa.
+Bootstraps react native library with an optional example.
 
 Usage:
-  rn-lib <name>
-  react-native-lib <name>
-  react-native-lib <name> [options]
+rn-lib <name>
+react-native-lib <name>
+react-native-lib <name> [options]
 
 Options:
-  --npm               Use npm as package manager
-  --example [type]    Use expo or vanilla example
+--npm               Use npm as package manager
+--example [type]    Create an example. Valid types: expo, vanilla. It won't create any of these by default.
 `;
 // prettier-ignore
 const showInitializationMessage = (opts) => `
@@ -19,6 +20,7 @@ Initializing react-native library project ${opts.name}${condStr(opts.example, ` 
 ${condStr(opts.version, `React Native version: ${opts.version}`)}
 Please wait a bit.
 `;
+/* eslint-enable max-len */
 
 module.exports = {
   name: 'react-native-lib',

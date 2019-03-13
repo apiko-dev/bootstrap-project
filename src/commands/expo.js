@@ -1,15 +1,15 @@
-// bootstrap-project rn TodoApp
+/* eslint-disable max-len */
 const HELP_MESSAGE = `
 Bootstraps expo project with a given name using yarn.
 
 Usage:
-  e <name>
-  expo <name>
-  expo <name> [options]
+e <name>
+expo <name>
+expo <name> [options]
 
 Options:
-  --npm                  Use npm as package manager.
-  -t, --template [name]  Specify which template to use. Valid options are "blank", "tabs" or any npm package that includes an Expo project template. Default is blank.
+--npm                  Use npm as package manager.
+-t, --template [name]  Specify which template to use. Valid options are "blank", "tabs" or any npm package that includes an Expo project template. Default is blank.
 `;
 // prettier-ignore
 const showInitializationMessage = (opts) => `
@@ -17,6 +17,7 @@ Initializing expo project ${opts.name} using ${opts.shouldUseNpm ? 'npm' : 'yarn
 Template is ${opts.template}.
 Please wait a bit.
 `;
+/* eslint-enable max-len */
 
 module.exports = {
   name: 'expo',

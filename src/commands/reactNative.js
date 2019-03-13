@@ -1,4 +1,3 @@
-// bootstrap-project rn TodoApp
 const { condStr } = require('../utils');
 
 const HELP_MESSAGE = `
