@@ -1,4 +1,4 @@
-const { attachExtensions, condStr } = require('../utils');
+const { attachExtensions, buildCommand } = require('../utils');
 
 module.exports = (toolbox) => {
   function checkCli() {
@@ -8,11 +8,22 @@ module.exports = (toolbox) => {
     return commandExists('expo');
   }
 
-  function init({ template, name, shouldUseNpm }) {
+  function init({
+    cdIntoPath, template, name, shouldUseNpm,
+  }) {
     // prettier-ignore
-    return toolbox.system.run(
-      `expo init ${name} ${condStr(shouldUseNpm, '--npm')} --template ${template}`,
-    );
+    const cmd = buildCommand([
+      cdIntoPath && `cd ${cdIntoPath} &&`,
+      'expo',
+      'init',
+      '--name',
+      name,
+      shouldUseNpm && '--npm',
+      `--template ${template}`,
+      `./${name}`,
+    ]);
+
+    return toolbox.system.run(cmd);
   }
 
   attachExtensions(toolbox, 'expo', {

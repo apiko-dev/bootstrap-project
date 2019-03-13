@@ -24,7 +24,8 @@
   "license": "MIT",
   "dependencies": {
     "command-exists": "^1.2.8",
-    "gluegun": "^2.1.0"
+    "gluegun": "^2.1.0",
+    "make-dir": "^2.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
