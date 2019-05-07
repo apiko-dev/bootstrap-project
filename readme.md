@@ -32,6 +32,20 @@ Use `--help` to see all available options:
 $ bootstrap-project expo --help
 ```
 
+#### create-react-app
+
+You can use `create-react-app` command to bootstrap react (create-react-app) project.
+
+```bash
+$ bootstrap-project create-react-app <name>
+```
+
+Use `--help` to see all available options:
+
+```bash
+$ bootstrap-project create-react-app --help
+```
+
 ### Library
 
 ##### React Native Library
