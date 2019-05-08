@@ -1,6 +1,6 @@
 module.exports = {
   parser: 'babel-eslint',
-  extends: '<%- props.extends %>',
+  extends: <%- props.extends %>,
   globals: { fetch: false },
   <%_ if (props.plugins) { _%>
   plugins: <%- props.plugins %>,
@@ -32,6 +32,8 @@ module.exports = {
     'class-methods-use-this': 'off',
     'arrow-parens': 'off',
     'no-param-reassign': 0,
+    "no-use-before-define": ["error", { "functions": false, "classes": false }],
+    "no-restricted-syntax": 0,
     <%_ if (props.reactRules) { _%>
     <%- props.reactRules.trim() %>
     <%_ } _%>
