@@ -60,6 +60,9 @@ module.exports = {
     info('Adding prettier');
     await extensions.prettier.init();
 
+    info('Updating babel config');
+    await extensions.babelConfig.init();
+
     info('Adding editor config');
     await extensions.editorconfig.init();
 

@@ -15,25 +15,34 @@ const REACT_NATIVE_RULES = `
     "react-native/split-platform-components": 2,
     "react-native/no-inline-styles": 2,
     "react-native/no-color-literals": 2,
-`
+`;
 
 const eslintDependencies = {
-  'babel-eslint': '10.0.1',
-  eslint: '^4.2.0',
+  'babel-eslint': '^8.2.6',
+  'babel-plugin-module-resolver': '^3.2.0',
+  eslint: '^6.2.2',
   'eslint-config-airbnb': '^16.1.0',
-  'eslint-formatter-pretty': '^1.1.0',
-  'eslint-plugin-import': '^2.7.0',
+  'eslint-config-prettier': '^6.1.0',
+  'eslint-formatter-pretty': '^1.3.0',
+  'eslint-import-resolver-alias': '^1.1.2',
+  'eslint-plugin-import': '^2.18.2',
   'eslint-plugin-jsx-a11y': '^6.0.2',
+  'eslint-plugin-prettier': '^3.1.0',
   'eslint-plugin-react': '^7.1.0',
   'eslint-plugin-react-native': '^3.1.0',
+  prettier: '^1.18.2',
+  'eslint-plugin-babel': '^5.3.0',
 };
 
 const craEslint = {
-  'eslint-config-airbnb': '^17.1.0',
-  'eslint-config-prettier': '^3.1.0',
+  eslint: '^6.2.2',
+  'eslint-config-airbnb': '^16.1.0',
+  'eslint-config-prettier': '^6.1.0',
+  'eslint-formatter-pretty': '^1.3.0',
   'eslint-plugin-jsx-a11y': '^6.1.2',
   'eslint-plugin-prettier': '^3.0.0',
   'eslint-plugin-testcafe': '^0.2.1',
+  prettier: '^1.18.2',
 };
 
 module.exports = (toolbox) => {
@@ -51,10 +60,10 @@ module.exports = (toolbox) => {
       template: 'eslintrc.js.ejs',
       target,
       props: {
-        plugins: "['react', 'react-native']",
+        plugins: "['react', 'react-native', 'babel', 'prettier']",
         extensions: "['js', '.android.js', '.ios.js']",
-        extends: "['airbnb']",
-        reactRules: REACT_RULES,
+        extends: "['airbnb', 'prettier']",
+        reactRules: REACT_NATIVE_RULES,
       },
     });
   }

@@ -1,5 +1,10 @@
 module.exports = {
   parser: 'babel-eslint',
+  parserOptions: {
+    babelOptions: {
+      configFile: './babel.config.js',
+    },
+  },
   extends: <%- props.extends %>,
   globals: { fetch: false },
   <%_ if (props.plugins) { _%>
@@ -12,6 +17,9 @@ module.exports = {
     'import/resolver': {
       node: {
         extensions: <%- props.extensions %>,
+      },
+      alias: {
+        map: [['src', './src']],
       },
     },
   },
@@ -34,6 +42,9 @@ module.exports = {
     'no-param-reassign': 0,
     "no-use-before-define": ["error", { "functions": false, "classes": false }],
     "no-restricted-syntax": 0,
+    'no-unused-expressions': 'off',
+    'babel/no-unused-expressions': 'error',
+    'prettier/prettier': 'error',
     <%_ if (props.reactRules) { _%>
     <%- props.reactRules.trim() %>
     <%_ } _%>
