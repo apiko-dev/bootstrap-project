@@ -20,6 +20,7 @@ const REACT_NATIVE_RULES = `
 const eslintDependencies = {
   'babel-eslint': '^8.2.6',
   'babel-plugin-module-resolver': '^3.2.0',
+  '@babel/plugin-proposal-export-namespace-from': '^7.5.2',
   eslint: '^6.2.2',
   'eslint-config-airbnb': '^16.1.0',
   'eslint-config-prettier': '^6.1.0',
