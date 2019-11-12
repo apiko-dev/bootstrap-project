@@ -5,6 +5,7 @@ const REACT_RULES = `
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/forbid-prop-types": 0,
     "react/require-default-props": 0,
+    "no-unused-expressions": 'error',
 `;
 
 const REACT_NATIVE_RULES = `
@@ -15,6 +16,7 @@ const REACT_NATIVE_RULES = `
     "react-native/split-platform-components": 2,
     "react-native/no-inline-styles": 2,
     "react-native/no-color-literals": 2,
+    "babel/no-unused-expressions": 'error',
 `;
 
 const eslintDependencies = {
@@ -37,12 +39,15 @@ const eslintDependencies = {
 
 const craEslint = {
   eslint: '^6.2.2',
+  'babel-eslint': '^8.2.6',
   'eslint-config-airbnb': '^16.1.0',
   'eslint-config-prettier': '^6.1.0',
   'eslint-formatter-pretty': '^1.3.0',
   'eslint-plugin-jsx-a11y': '^6.1.2',
   'eslint-plugin-prettier': '^3.0.0',
   'eslint-plugin-testcafe': '^0.2.1',
+  'eslint-plugin-import': '^2.18.2',
+  'eslint-plugin-react': '^7.1.0',
   prettier: '^1.18.2',
 };
 
