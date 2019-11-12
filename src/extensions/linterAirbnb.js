@@ -84,7 +84,7 @@ module.exports = (toolbox) => {
         plugins: "['react', 'testcafe', 'prettier']",
         extensions: "['js']",
         extends:
-          '["airbnb", "plugin:testcafe/recommended", "prettier"]',
+          '["airbnb", "plugin:testcafe/recommended", "prettier", "prettier/react"]',
         reactRules: REACT_RULES,
       },
     });
