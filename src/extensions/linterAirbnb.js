@@ -19,8 +19,8 @@ const REACT_NATIVE_RULES = `
     "babel/no-unused-expressions": 'error',
 `;
 
-const eslintDependencies = {
-  'babel-eslint': '^8.2.6',
+const eslintRNDependencies = {
+  'babel-eslint': '^10.0.3',
   'babel-plugin-module-resolver': '^3.2.0',
   '@babel/plugin-proposal-export-namespace-from': '^7.5.2',
   eslint: '^6.2.2',
@@ -39,15 +39,15 @@ const eslintDependencies = {
 
 const craEslint = {
   eslint: '^6.2.2',
-  'babel-eslint': '^8.2.6',
   'eslint-config-airbnb': '^16.1.0',
   'eslint-config-prettier': '^6.1.0',
   'eslint-formatter-pretty': '^1.3.0',
+  'eslint-import-resolver-alias': '^1.1.2',
+  'eslint-plugin-import': '^2.18.2',
   'eslint-plugin-jsx-a11y': '^6.1.2',
   'eslint-plugin-prettier': '^3.0.0',
-  'eslint-plugin-testcafe': '^0.2.1',
-  'eslint-plugin-import': '^2.18.2',
   'eslint-plugin-react': '^7.1.0',
+  'eslint-plugin-testcafe': '^0.2.1',
   prettier: '^1.18.2',
 };
 
@@ -56,7 +56,7 @@ module.exports = (toolbox) => {
 
   async function initReact() {
     await toolbox.extensions.packageJson.addDependencies(
-      eslintDependencies,
+      eslintRNDependencies,
       true,
     );
 
@@ -66,6 +66,7 @@ module.exports = (toolbox) => {
       template: 'eslintrc.js.ejs',
       target,
       props: {
+        babelParser: true,
         plugins: "['react', 'react-native', 'babel', 'prettier']",
         extensions: "['js', '.android.js', '.ios.js']",
         extends: "['airbnb', 'prettier']",

@@ -1,10 +1,12 @@
 module.exports = {
+  <%_ if (props.babelParser) { _%>
   parser: 'babel-eslint',
   parserOptions: {
     babelOptions: {
       configFile: './babel.config.js',
     },
   },
+  <%_ } _%>
   extends: <%- props.extends %>,
   globals: { fetch: false },
   <%_ if (props.plugins) { _%>

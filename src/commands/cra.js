@@ -59,6 +59,9 @@ module.exports = {
     info('Adding editor config');
     await extensions.editorconfig.init();
 
+    info('Adding jsconfig');
+    await extensions.jsconfig.init();
+
     info('Installing additional dependencies');
     await extensions.packageManager.install(shouldUseNpm);
 
