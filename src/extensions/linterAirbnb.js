@@ -38,6 +38,7 @@ const eslintRNDependencies = {
 };
 
 const craEslint = {
+  'babel-eslint': '^10.0.3',
   eslint: '^6.2.2',
   'eslint-config-airbnb': '^16.1.0',
   'eslint-config-prettier': '^6.1.0',
@@ -87,6 +88,7 @@ module.exports = (toolbox) => {
       template: 'eslintrc.js.ejs',
       target,
       props: {
+        babelParser: true,
         plugins: "['react', 'testcafe', 'prettier']",
         extensions: "['js']",
         extends:
