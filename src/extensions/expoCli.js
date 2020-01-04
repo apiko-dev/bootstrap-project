@@ -14,6 +14,7 @@ module.exports = (toolbox) => {
     // prettier-ignore
     const cmd = buildCommand([
       cdIntoPath && `cd ${cdIntoPath} &&`,
+      'npx',
       'expo',
       'init',
       '--name',

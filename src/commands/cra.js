@@ -42,12 +42,6 @@ module.exports = {
     // prettier-ignore
     info(showInitializationMessage({ name, shouldUseNpm }));
 
-    try {
-      await extensions.cra.checkCli();
-    } catch (e) {
-      error('Please install create-react-app first');
-      return;
-    }
     await extensions.cra.init({ name, shouldUseNpm });
 
     info('Adding linter');

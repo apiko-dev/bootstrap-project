@@ -14,6 +14,7 @@ module.exports = (toolbox) => {
     // prettier-ignore
     const cmd = buildCommand([
       cdIntoPath && `cd ${cdIntoPath} &&`,
+      'npx',
       'create-react-app',
       name,
       shouldUseNpm && '--use-npm',

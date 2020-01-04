@@ -8,11 +8,10 @@ module.exports = (toolbox) => {
     return commandExists('react-native');
   }
 
-  function init({
-    cdIntoPath, name, shouldUseNpm, version,
-  }) {
+  function init({ cdIntoPath, name, shouldUseNpm, version }) {
     const cmd = buildCommand([
       cdIntoPath && `cd ${cdIntoPath} &&`,
+      'npx',
       'react-native',
       'init',
       name,

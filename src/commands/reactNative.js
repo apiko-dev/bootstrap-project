@@ -45,12 +45,6 @@ module.exports = {
     // prettier-ignore
     info(showInitializationMessage({ name, shouldUseNpm, version }));
 
-    try {
-      await extensions.rn.checkCli();
-    } catch (e) {
-      error('Please install react-native-cli first');
-      return;
-    }
     await extensions.rn.init({ name, shouldUseNpm, version });
 
     info('Adding linter');

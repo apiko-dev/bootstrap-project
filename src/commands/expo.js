@@ -45,12 +45,6 @@ module.exports = {
     // prettier-ignore
     info(showInitializationMessage({ name, shouldUseNpm, template }));
 
-    try {
-      await extensions.expo.checkCli();
-    } catch (e) {
-      error('Please install expo-cli first');
-      return;
-    }
     // prettier-ignore
     await extensions.expo.init({ template, name, shouldUseNpm });
 
