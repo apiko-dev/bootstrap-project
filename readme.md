@@ -7,7 +7,7 @@
 You should install the CLI globally using `npm` or `yarn`:
 
 ```bash
-$ npm i -g @apiko-dev/bootstrap-project
+$ npm i -g @apiko/bootstrap-project
 ```
 
 After that, `bootstrap-project` command will be available for you.
@@ -15,10 +15,10 @@ After that, `bootstrap-project` command will be available for you.
 Or use can use it directly running via `npx`:
 
 ```bash
- npx @apiko-dev/bootstrap-project --help
+ npx @apiko/bootstrap-project --help
 ```
 
-Make sure to include the scope (`@apiko-dev`) when you're running using npx.
+Make sure to include the scope (`@apiko`) when you're running using npx.
 
 ## Available commands
 
