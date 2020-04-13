@@ -2,6 +2,24 @@
 
 > A CLI for bootstrapping Apiko projects
 
+# Installation
+
+You should install the CLI globally using `npm` or `yarn`:
+
+```bash
+$ npm i -g @apiko-dev/bootstrap-project
+```
+
+After that, `bootstrap-project` command will be available for you.
+
+Or use can use it directly running via `npx`:
+
+```bash
+ npx @apiko-dev/bootstrap-project --help
+```
+
+Make sure to include the scope (`@apiko-dev`) when you're running using npx.
+
 ## Available commands
 
 #### React Native
